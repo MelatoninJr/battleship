@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="content">
+        <script src="main.js"></script>
+    </div>
+    <script>
+const Gameboard = function() {
+    this.otherArray = []
+
+    this.create = function() {
+
+        for(let i = 0; i < 10; i++) {
+        let array = []
+        for(let j = 0; j < 10; j++) {
+            array.push(0)
+        }
+        this.otherArray.push(array)
+        }
+    }
+
+
+
+    this.placeship = function(x, y, length) {
+        //const ship = new Ship(length)
+
+        return this.otherArray[x][y] = 1
+
+    }
+
+
+
+
+
+
+
+
+  };
+
+  const one = new Gameboard()
+  one.create()
+  console.log(one.otherArray)
+  console.log()
+
+  one.placeship(4, 7)
+
+
+  
+
+
+
+
+
+
+
+        //this.hit = function(number) {return 'This is the number ' + number}
+
+    </script>
+</body>
+</html>

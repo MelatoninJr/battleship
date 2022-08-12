@@ -86,7 +86,7 @@ const Gameboard = function(appendone, appendtwo) {
             this.counter()
             this.nodeCheckTwo(Number(x), Number(y), 'red', board, 'hit')
             this.otherArray[x][y] = 2
-            //console.log("there is a ship present")
+    
 
 
 
@@ -95,7 +95,6 @@ const Gameboard = function(appendone, appendtwo) {
 
         } else if(this.otherArray[x][y] === 0) {
             this.nodeCheckTwo(Number(x), Number(y), 'green', board, 'miss')
-            //console.log("there is not a ship present")
             this.otherArray[x][y] = 3
 
 //Need to mark with hit/missed class
@@ -129,29 +128,72 @@ const Gameboard = function(appendone, appendtwo) {
 
 
 
-    this.shipArray = [[1, 2, 3, 4, 5] ,
+    this.shipArray = [[1, 2, 3, 4, 5],
                         [1, 2, 3, 4],
                         [1, 2, 3],
                         [1, 2, 3],
                         [1, 2]
 ]
+    this.countertwo = 5
     this.placeAllShips = function(x, y, board) {
         const selector = document.querySelector('.directionbutton')
+
+        
         if(selector.classList.contains('horizontal')) {
             for(let i = 0; i < this.shipArray[0].length; i++) {
-                this.placeship(x, y + i, board)
+                if(((y + this.shipArray[0].length - 1) >= 10) || ((x + this.shipArray[0].length - 1) >= 10)) {
+                    return
+                }else {
+                    this.placeship(x, y + i, board)
+                }
+    
             }
         } else if(selector.classList.contains('vertical')) {
             for(let i = 0; i < this.shipArray[0].length; i++) {
-                this.placeship(x + i, y, board)
+                if(((y + this.shipArray[0].length - 1) >= 10) ||(x + this.shipArray[0].length - 1) >= 10) {
+                    return
+                }else {
+                    this.placeship(x + i, y, board)
+                }
+
             }
         }
 
         this.shipArray.shift()
+        return
     }
 
 
+    this.populateComputerShips = function() { 
 
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+          }  
+        let targetselect = document.querySelector('.directionbutton') 
+
+       let firstnumber = (10 - Number(this.shipArray[0].length))
+       let secondnumber = (9)
+       let thirdnumber = getRandomInt(firstnumber)
+       let fourthnumber = getRandomInt(secondnumber)
+       console.log(this.shipArray)
+       console.log(thirdnumber, firstnumber)
+       /*
+       for(let j = 0; j < this.shipArray[0].length; j++) {
+        if(this.otherArray[thirdnumber][fourthnumber + j] === 1){
+            return
+        }else {
+            for(let i = 0; i < this.shipArray[0].length; i++) {
+                this.placeship(thirdnumber, fourthnumber + i, '.secondboard')
+                
+            
+           }
+        }
+        this.shipArray.shift()
+       }*/
+
+       this.placeAllShips(thirdnumber, fourthnumber, '.secondboard')
+
+    } 
 
 
 

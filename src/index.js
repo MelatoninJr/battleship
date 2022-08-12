@@ -22,13 +22,23 @@ const bodyTwo = document.createElement('div')
 bodyTwo.classList.add('bodytwo')
 bodycontainer.append(bodyOne, bodyTwo)
 
+const buttoncontainer = document.createElement('div')
+buttoncontainer.classList.add('buttoncontainer')
+bodyOne.append(buttoncontainer)
+
+const playButton = document.createElement('button')
+playButton.classList.add('playbutton')
+playButton.type = 'button'
+playButton.textContent = 'Play'
+buttoncontainer.append(playButton)
 
 const directionButton = document.createElement('button')
 directionButton.classList.add('directionbutton')
 directionButton.textContent = 'Rotate'
 directionButton.classList.add('horizontal')
 directionButton.type = 'button'
-bodyOne.append(directionButton)
+buttoncontainer.append(directionButton)
+
 
 
 const bodyOneContainer = document.createElement('div')
@@ -63,15 +73,6 @@ computerBoard.visualcreate(secondBoard, computerBoard)
 
 
 
-computerBoard.placeship(9,1, '.secondboard')
-computerBoard.placeship(9,2, '.secondboard')
-computerBoard.placeship(9,3, '.secondboard')
-
-
-
-//popupBoard.placeship(0,0, '.popboard')
-//popupBoard.placeship(1,1, '.popboard')
-
 
 directionButton.addEventListener('click', function(e) {
     if(e.target.classList.contains('horizontal')) {
@@ -83,30 +84,49 @@ directionButton.addEventListener('click', function(e) {
     }
 })
 
+playButton.addEventListener('click', function(e) {
+    //computerBoard.populateComputerShips()
+
+    for(let i = 0; i < computerBoard.shipArray.length; i++) {
+        if(computerBoard.shipArray[0].length === undefined) {
+            return
+        }else {
+            computerBoard.populateComputerShips()
+        }
+    }
+
+
+    let target = document.querySelector('.bodyone')
+    target.remove()
+
+})
+
 popBoard.addEventListener('mouseover', (e) => {
     let target = e.target
     let x = Number(target.dataset.xaxis)
     let y = Number(target.dataset.yaxis)
 
-    //console.log(popupBoard.shipArray)
-    //console.log(popupBoard.shipArray[0].length)
+    if(directionButton.classList.contains('horizontal')) {
+        for(let i = 0; i < popupBoard.shipArray[0].length; i++) {
+            popupBoard.nodeCheckThree((x), (y + i), 'black', '.popboard')
+        }
 
-    for(let i = 0; i < popupBoard.shipArray[0].length; i++) {
-        popupBoard.nodeCheckThree((x), (y + i), 'black', '.popboard')
+    }else if(directionButton.classList.contains('vertical')) {
+        for(let i = 0; i < popupBoard.shipArray[0].length; i++) {
+            popupBoard.nodeCheckThree((x + i), (y), 'black', '.popboard')
+        }
     }
 
 
-
-target.addEventListener("click", function(t) {
-    let targettwo = t.target
-    let a = Number(targettwo.dataset.xaxis)
-    let b = Number(targettwo.dataset.yaxis)
-    console.log(targettwo.dataset.xaxis, targettwo.dataset.yaxis, targettwo)
-    popupBoard.placeAllShips(a, b, '.popboard')
-    playerBoard.placeAllShips(a, b, '.firstboard')
-    console.log(popupBoard.otherArray)
 })
 
+popBoard.addEventListener('click', function(e) {
+    let targettwo = e.target
+    let a = Number(targettwo.dataset.xaxis)
+    let b = Number(targettwo.dataset.yaxis)
+    popupBoard.placeAllShips(a, b, '.popboard')
+    playerBoard.placeAllShips(a, b, '.firstboard')
+    //computerBoard.populateComputerShips()
 
 })
 
@@ -114,17 +134,33 @@ popBoard.addEventListener('mouseout', (e) => {
     let target = e.target
     let x = Number(target.dataset.xaxis)
     let y = Number(target.dataset.yaxis)
-    //console.log(target)
-    //console.log(target, x, y)
+
     
     if(target.classList.contains('ship')) {
-        for(let i = 0; i < popupBoard.shipArray[0].length; i++) {
-            popupBoard.nodeCheckThree((x), (y + i + 1), 'white', '.popboard')
+        if(directionButton.classList.contains('horizontal')) {
+            for(let i = 0; i < popupBoard.shipArray[0].length; i++) {
+                popupBoard.nodeCheckThree((x), (y + i + 1), 'white', '.popboard')
+            }
+            return
+
+        } else if(directionButton.classList.contains('vertical')) {
+            for(let i = 0; i < popupBoard.shipArray[0].length; i++) {
+                popupBoard.nodeCheckThree((x + i + 1), (y), 'white', '.popboard')
+            }
+            return
         }
+ 
         return
     }else {
-        for(let i = 0; i < popupBoard.shipArray[0].length; i++) {
-            popupBoard.nodeCheckThree((x), (y + i), 'white', '.popboard')
+        if(directionButton.classList.contains('horizontal')) {
+            for(let i = 0; i < popupBoard.shipArray[0].length; i++) {
+                popupBoard.nodeCheckThree((x), (y + i), 'white', '.popboard')
+            }
+        } else if(directionButton.classList.contains('vertical')) {
+            for(let i = 0; i < popupBoard.shipArray[0].length; i++) {
+                popupBoard.nodeCheckThree((x + i), (y), 'white', '.popboard')
+            }
+
         }
     }
 
@@ -138,7 +174,6 @@ popBoard.addEventListener('mouseout', (e) => {
 
 //Add event listener 
 secondBoard.addEventListener('click', function(e) {
-    console.log(e.target)
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
       }      

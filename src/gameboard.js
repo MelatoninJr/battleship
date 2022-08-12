@@ -37,9 +37,34 @@ const Gameboard = function(appendone, appendtwo) {
         const columnGrab = document.querySelector(board).querySelectorAll('.column')
         for(let i = 0; i < columnGrab.length; i++) {
             if(Number(columnGrab[i].dataset.xaxis) === x && Number(columnGrab[i].dataset.yaxis) === y) {
+                columnGrab[i].classList.add('ship')
                 this.otherArray[x][y] = 1
                 columnGrab[i].classList.add(classname)
                 columnGrab[i].style.backgroundColor = color
+            }
+        }
+    }
+
+    this.nodeCheckTwo = function(x, y, color, board, classname) {
+        const columnGrab = document.querySelector(board).querySelectorAll('.column')
+        for(let i = 0; i < columnGrab.length; i++) {
+            if(Number(columnGrab[i].dataset.xaxis) === x && Number(columnGrab[i].dataset.yaxis) === y) {
+                this.otherArray[x][y] = 1
+                columnGrab[i].classList.add(classname)
+                columnGrab[i].style.backgroundColor = color
+            }
+        }
+    }
+
+    this.nodeCheckThree = function(x, y, color, board, classname) {
+        const columnGrab = document.querySelector(board).querySelectorAll('.column')
+        for(let i = 0; i < columnGrab.length; i++) {
+            if(Number(columnGrab[i].dataset.xaxis) === x && Number(columnGrab[i].dataset.yaxis) === y) {
+                if(columnGrab[i].classList.contains('ship')) {
+
+                    //columnGrab[i].style.backgroundColor = 'black'
+                }else {columnGrab[i].style.backgroundColor = color}
+               
             }
         }
     }
@@ -48,13 +73,18 @@ const Gameboard = function(appendone, appendtwo) {
     this.placeship = function(x, y, board) {
         this.nodeCheck(x, y, 'black', board)
 }
+    this.countervalue = 0
+    this.counter = function() {
 
-
+        this.countervalue++
+        return this.countervalue
+    }
 
 //Uses X and Y to check if a ship is present
     this.receiveAttack = function(x, y, board) {
         if(this.otherArray[x][y] === 1) {
-            this.nodeCheck(Number(x), Number(y), 'red', board, 'hit')
+            this.counter()
+            this.nodeCheckTwo(Number(x), Number(y), 'red', board, 'hit')
             this.otherArray[x][y] = 2
             //console.log("there is a ship present")
 
@@ -64,7 +94,7 @@ const Gameboard = function(appendone, appendtwo) {
 //Below will mark a hit/ship spot
 
         } else if(this.otherArray[x][y] === 0) {
-            this.nodeCheck(Number(x), Number(y), 'green', board, 'miss')
+            this.nodeCheckTwo(Number(x), Number(y), 'green', board, 'miss')
             //console.log("there is not a ship present")
             this.otherArray[x][y] = 3
 
@@ -72,8 +102,92 @@ const Gameboard = function(appendone, appendtwo) {
 //Below will mark a hit/missed spot.
         }
     }
+    this.usedArray = [['','']]
+    this.usedCoords = function (x, y) {
+        let numberone = Number(x)
+        let numbertwo = Number(y)
 
 
+
+
+        for(let i = 0; i < this.usedArray.length; i++) {
+            for (let j = 0; j < 1; j++) {
+                if(this.usedArray[i][j] === numberone && this.usedArray[i][j + 1] === numbertwo) {
+                    return 1
+
+                } else {
+
+                }
+
+            }
+
+        }
+        this.usedArray.push([numberone, numbertwo])
+
+
+    }
+
+
+
+    this.shipArray = [[1, 2, 3, 4, 5] ,
+                        [1, 2, 3, 4],
+                        [1, 2, 3],
+                        [1, 2, 3],
+                        [1, 2]
+]
+    this.placeAllShips = function(x, y, board) {
+        const selector = document.querySelector('.directionbutton')
+        if(selector.classList.contains('horizontal')) {
+            for(let i = 0; i < this.shipArray[0].length; i++) {
+                this.placeship(x, y + i, board)
+            }
+        } else if(selector.classList.contains('vertical')) {
+            for(let i = 0; i < this.shipArray[0].length; i++) {
+                this.placeship(x + i, y, board)
+            }
+        }
+
+        this.shipArray.shift()
+    }
+
+
+
+
+
+
+
+    this.availableArray = []
+    this.populateArray = function() {
+        for(let i = 0; i < 10; i++) {
+            for(let j = 0; j< 10; j++) {
+                this.availableArray.push([i, j])
+            }
+        }
+    }
+    this.populateArray()
+
+    this.removeFromArray = function(x,y) {
+        let numberone = Number(x)
+        let numbertwo = Number(y)
+
+
+
+
+        for(let i = 0; i < this.availableArray.length; i++) {
+            for (let j = 0; j < 1; j++) {
+                if(this.availableArray[i][j] === numberone && this.availableArray[i][j + 1] === numbertwo) {
+                    this.availableArray.splice(i, 1)
+
+
+                } else {
+
+                }
+
+            }
+
+        }
+        this.usedArray.push([numberone, numbertwo])
+    }
 
 
     this.isSunk = function() {

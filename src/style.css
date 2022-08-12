@@ -22,9 +22,25 @@
     align-items: center;
     gap: 24px;
 }
+.bodyone {
+    z-index: 3;
+    height: 80%;
+    width: 60%;
+    background-color: white;
+    position: absolute;
+
+}
+.bodytwo {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    z-index: 2;
+}
 
 .firstboard,
-.secondboard {
+.secondboard{
     width: 500px;
     height: 500px; 
     border: 2px solid black;
@@ -32,6 +48,27 @@
     flex-direction: column;
     flex-wrap: wrap;
 }
+
+.popboard {
+    width: 300px;
+    height: 300px; 
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.bodyonecontainer {
+
+    width: 100%;
+    height: 100%;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+
 
 .footer {
     height: 15%;
@@ -54,4 +91,8 @@
 
 .column {
     border: 1px solid black;
+}
+
+.column:hover {
+    background-color: ghostwhite;
 }

@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 #content {
@@ -12,8 +13,14 @@
 
 .header {
     height: 15%;
-    background-color: red;
+    background-color: white;
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 92px;
+    font-weight: bolder;
+    color: #1B1B1B;
 }
 .bodycontainer {
     flex-grow: 1;
@@ -24,8 +31,8 @@
 }
 .bodyone {
     z-index: 3;
-    height: 80%;
-    width: 60%;
+    height: 70%;
+    width: 40%;
     background-color: white;
     position: absolute;
 
@@ -64,15 +71,20 @@
     height: 100%;
     border: 2px solid black;
     display: flex;
-    justify-content: center;
-    align-items:center;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.bodyone {
+    border: 2px solid black;
 }
 
 
 
 .footer {
     height: 15%;
-    background-color: black;
+    background-color: white;
     flex-shrink: 0;
 }
 
@@ -104,4 +116,144 @@
 
 .playbutton {
     width: 200px;
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    height: 100px;
+    background-color: white;
+    border: 1px solid black;
+    font-size: 42px;
+    font-weight: bolder;
 }
+.directionbutton {
+    width: 200px;
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    height: 50;
+    background-color: white;
+    border: 1px solid black;
+    font-size: 42px;
+    font-weight: bolder;
+
+}
+
+
+.playbutton {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    background: #2098D1;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+  }
+  .playbutton:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+    -webkit-transform-origin: 50%;
+    transform-origin: 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .playbutton:hover, .playbutton:focus, .playbutton:active {
+    color: white;
+  }
+  .playbutton:hover:before, .playbutton:focus:before, .playbutton:active:before {
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+  }
+
+
+  .directionbutton {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+  }
+  .directionbutton:hover, .directionbutton:focus, .directionbutton:active {
+    -webkit-transform: scale(1.04);
+    transform: scale(1.04);
+  }
+
+  .winscreen {
+    width: 75%;
+    height: 50%;
+    background-color: white;
+    border: 2px solid black;
+    z-index: 3;
+    height: 70%;
+    width: 40%;
+    background-color: white;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .line {
+    font-size: 48px;
+    font-weight: bolder;
+    color: black;
+
+  }
+
+  .lineone {
+
+    font-size: 72px;
+    font-weight: bolder;
+    color: black;
+  }
+
+  .refreshbutton {
+
+
+    width: 200px;
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    height: 100px;
+    background-color: white;
+    border: 1px solid black;
+    font-size: 42px;
+    font-weight: bolder;
+  }
+
+  .refreshbutton {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+  }
+  .refreshbutton:hover, .refreshbutton:focus, .refreshbutton:active {
+    -webkit-transform: scale(1.04);
+    transform: scale(1.04);
+  }

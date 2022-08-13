@@ -6,6 +6,7 @@ const bodyselect = document.getElementById('content')
 
 const header = document.createElement('div')
 header.classList.add('header')
+header.textContent = 'BattleShip'
 bodyselect.append(header)
 
 const bodycontainer = document.createElement('div')
@@ -15,6 +16,11 @@ bodyselect.append(bodycontainer)
 const footer = document.createElement('div')
 footer.classList.add('footer')
 bodyselect.append(footer)
+
+const footerContainer = document.createElement('div')
+footerContainer.classList.add('footercontaienr')
+footer.append(footerContainer)
+
 
 const bodyOne = document.createElement('div')
 bodyOne.classList.add('bodyone')
@@ -26,18 +32,9 @@ const buttoncontainer = document.createElement('div')
 buttoncontainer.classList.add('buttoncontainer')
 bodyOne.append(buttoncontainer)
 
-const playButton = document.createElement('button')
-playButton.classList.add('playbutton')
-playButton.type = 'button'
-playButton.textContent = 'Play'
-buttoncontainer.append(playButton)
 
-const directionButton = document.createElement('button')
-directionButton.classList.add('directionbutton')
-directionButton.textContent = 'Rotate'
-directionButton.classList.add('horizontal')
-directionButton.type = 'button'
-buttoncontainer.append(directionButton)
+
+
 
 
 
@@ -45,12 +42,24 @@ const bodyOneContainer = document.createElement('div')
 bodyOneContainer.classList.add('bodyonecontainer')
 bodyOne.append(bodyOneContainer)
 
+const directionButton = document.createElement('button')
+directionButton.classList.add('directionbutton')
+directionButton.textContent = 'Rotate'
+directionButton.classList.add('horizontal')
+directionButton.type = 'button'
+bodyOneContainer.append(directionButton)
 
 
 
 const popBoard = document.createElement('div')
 popBoard.classList.add('popboard')
 bodyOneContainer.append(popBoard)
+
+const playButton = document.createElement('button')
+playButton.classList.add('playbutton')
+playButton.type = 'button'
+playButton.textContent = 'Play'
+bodyOneContainer.append(playButton)
 
 const firstBoard = document.createElement('div')
 firstBoard.classList.add('firstboard')
@@ -86,16 +95,16 @@ directionButton.addEventListener('click', function(e) {
 
 playButton.addEventListener('click', function(e) {
     //computerBoard.populateComputerShips()
-
+/*
     for(let i = 0; i < computerBoard.shipArray.length; i++) {
         if(computerBoard.shipArray[0].length === undefined) {
-            return
+            computerBoard.populateComputerShips()
         }else {
             computerBoard.populateComputerShips()
         }
-    }
+    }*/
 
-
+    computerBoard.populateComputerShips()
     let target = document.querySelector('.bodyone')
     target.remove()
 
@@ -124,9 +133,9 @@ popBoard.addEventListener('click', function(e) {
     let targettwo = e.target
     let a = Number(targettwo.dataset.xaxis)
     let b = Number(targettwo.dataset.yaxis)
-    popupBoard.placeAllShips(a, b, '.popboard')
-    playerBoard.placeAllShips(a, b, '.firstboard')
-    //computerBoard.populateComputerShips()
+    popupBoard.placeAllShips(a, b, '.popboard', 'black')
+    playerBoard.placeAllShips(a, b, '.firstboard', 'black')
+
 
 })
 
@@ -187,9 +196,7 @@ secondBoard.addEventListener('click', function(e) {
  
         
 
-        if(computerBoard.countervalue === 2) {
-            console.log('battleship')
-        }
+
         
 
         if(target.classList.contains('hit') || target.classList.contains('miss')) {
@@ -200,11 +207,67 @@ secondBoard.addEventListener('click', function(e) {
         computerBoard.receiveAttack(target.dataset.xaxis, target.dataset.yaxis, boardtwo)
         playerBoard.receiveAttack(randomFour, randomFive, board)
         computerBoard.removeFromArray(randomFour, randomFive)
+        if(computerBoard.countervalue === 17) {
+            console.log('battleship player wins')
+            const winscreen = document.createElement('div')
+            winscreen.classList.add('winscreen')
+            bodycontainer.append(winscreen)
+
+            const lineone = document.createElement('div')
+            lineone.classList.add('lineone')
+            lineone.textContent = 'BATTLESHIP'
+
+
+            const linetwo = document.createElement('div')
+            linetwo.classList.add('line')
+            linetwo.textContent = 'You Win!'
+
+            const refreshbutton = document.createElement('button')
+            refreshbutton.textContent = 'New'
+            refreshbutton.classList.add('refreshbutton')
+            refreshbutton.type = 'submit'
+            winscreen.append(lineone, linetwo, refreshbutton)
+
+            refreshbutton.addEventListener('click', function() {
+                location.reload()
+            })
+
+        }
+        if(playerBoard.countervalue === 17) {
+            console.log('battleship computer wins')
+
+            const winscreen = document.createElement('div')
+            winscreen.classList.add('winscreen')
+            bodycontainer.append(winscreen)
+
+            const lineone = document.createElement('div')
+            lineone.classList.add('lineone')
+            lineone.textContent = 'BATTLESHIP'
+
+
+            const linetwo = document.createElement('div')
+            linetwo.classList.add('line')
+            linetwo.textContent = 'You Lose :('
+
+            const refreshbutton = document.createElement('button')
+            refreshbutton.textContent = 'New'
+            refreshbutton.classList.add('refreshbutton')
+            refreshbutton.type = 'submit'
+
+            winscreen.append(lineone, linetwo, refreshbutton)
+
+
+            refreshbutton.addEventListener('click', function() {
+                location.reload()
+            })
+        }
         }
 
 
 
 })
+
+
 
 
 
